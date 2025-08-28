@@ -1,13 +1,72 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Random City Game</title>
+  <meta charset="UTF-8">
+  <title>Random City Viewer</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+      background: #f7f7f7;
+      text-align: center;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      margin: auto;
+      border-radius: 10px;
+      max-width: 400px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    h1 {
+      font-size: 24px;
+    }
+    p {
+      margin: 10px 0;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-  <h1>Random City</h1>
-  <div id="output">Loading...</div>
 
-  <script src="random-city.js"></script>
+  <div class="card">
+    <h1>Random City</h1>
+    <p><strong>Country:</strong> <span id="country">-</span></p>
+    <p><strong>State:</strong> <span id="state">-</span></p>
+    <p><strong>City:</strong> <span id="city">-</span></p>
+    <p><strong>Latitude:</strong> <span id="lat">-</span></p>
+    <p><strong>Longitude:</strong> <span id="lon">-</span></p>
+
+    <button onclick="loadRandomCity()">Get Random City</button>
+  </div>
+
+  <script>
+    async function loadRandomCity() {
+      try {
+        const res = await fetch('https://randomcity.vercel.app/api/random-city');
+        const json = await res.json();
+
+        document.getElementById('country').textContent = json.country || '-';
+        document.getElementById('state').textContent = json.state || '-';
+        document.getElementById('city').textContent = json.city || '-';
+        document.getElementById('lat').textContent = json.lat || '-';
+        document.getElementById('lon').textContent = json.lon || '-';
+
+      } catch (err) {
+        console.error("Failed to fetch city data", err);
+        alert("Error fetching data. Check your API or internet connection.");
+      }
+    }
+
+    // Auto-load city on page load
+    loadRandomCity();
+  </script>
+
 </body>
 </html>
