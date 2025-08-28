@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Random City Viewer</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Random City Viewer</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -30,6 +30,13 @@
       font-size: 16px;
       margin-top: 20px;
       cursor: pointer;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+    button:hover {
+      background-color: #45a049;
     }
   </style>
 </head>
@@ -49,9 +56,16 @@
   <script>
     async function loadRandomCity() {
       try {
+        // Request data from your Vercel API endpoint
         const res = await fetch('https://randomcity.vercel.app/api/random-city');
+        
+        if (!res.ok) {
+          throw new Error(`HTTP error! Status: ${res.status}`);
+        }
+
         const json = await res.json();
 
+        // Display fetched data
         document.getElementById('country').textContent = json.country || '-';
         document.getElementById('state').textContent = json.state || '-';
         document.getElementById('city').textContent = json.city || '-';
@@ -60,11 +74,11 @@
 
       } catch (err) {
         console.error("Failed to fetch city data", err);
-        alert("Error fetching data. Check your API or internet connection.");
+        alert("Error fetching data. Please try again.");
       }
     }
 
-    // Auto-load city on page load
+    // Automatically load one random city when the page loads
     loadRandomCity();
   </script>
 
