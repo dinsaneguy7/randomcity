@@ -76,6 +76,9 @@ const cities = [
 ];
 
 export default function handler(req, res) {
+  // Pick a random city from the list
   const randomCity = cities[Math.floor(Math.random() * cities.length)];
+
+  // Send the random city data as a JSON response
   res.status(200).json(randomCity);
 }
