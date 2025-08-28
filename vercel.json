@@ -1,14 +1,15 @@
 {
   "version": 2,
-  "functions": {
-    "random-city.py": {
-      "runtime": "python3.9"
+  "builds": [
+    {
+      "src": "main.py",
+      "use": "@vercel/python"
     }
-  },
+  ],
   "routes": [
     {
       "src": "/random-city",
-      "dest": "/random-city.py"
+      "dest": "/main.py"
     }
   ]
 }
